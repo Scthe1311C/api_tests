@@ -1,0 +1,40 @@
+# http://www.javascriptkit.com/howto/htaccess.shtml
+
+# default page
+DirectoryIndex index.php
+
+# prevent viewing directory content
+IndexIgnore *
+
+# disallow to view this file
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+
+# redirect to index.php for reqeust that has no extension
+RewriteEngine on
+RewriteCond $1 !\.(gif|jpe?g|png|ico|css|js|swf|wav|mp3|less|cur|php)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$      index.php     [L,QSA]
+
+# Error pages
+# http://www.javascriptkit.com/howto/htaccess2.shtml
+#ErrorDocument 400 /errors/badrequest.html
+#ErrorDocument 401 /errors/authreqd.html
+#ErrorDocument 403 /errors/forbid.html
+#ErrorDocument 404 /errors/notfound.html
+#ErrorDocument 500 /errors/serverr.html
+
+
+
+# add *.php extension when there is none
+#RewriteRule ^(.+)$      $1.php     [L,QSA]
+
+# http://www.datakoncepts.com/seo
+# http://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritecond
+# if page.php exist
+# RewriteCond %{REQUEST_FILENAME}\.php -f
+# if dir not exist
+# RewriteCond %{REQUEST_FILENAME} !-d
